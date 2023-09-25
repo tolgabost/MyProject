@@ -1,0 +1,23 @@
+import pandas as pd
+
+
+mydata = { 'Device_Type' : ["AXO145", "TRU151", "ZOD231","YRT326","LWR245"],
+    'Stats_Access_Link' : ["<url>https://xcd321112.smart_meter.com</url>"
+                          ,"<url>http://tXh67.dia_meter.com</url>"
+                          ,"<url>http://yT5495.smart_meter.com</url>"
+                          ,"<url>http://ret323_TRu.crown.com</url>"
+                          ,"<url>http://luwr3243.celcius.com</url>"]}
+
+mydata1 = pd.DataFrame(mydata)
+    
+# make lowercase all letters
+mydata1.Stats_Access_Link = [each.lower() for each in mydata1.loc[:,"Stats_Access_Link"]]
+
+# we get rid of the "<url>https://" part but some of the links start with "<url>http://" instead.
+# replaced those parts with --> ""
+mydata2 = mydata1["Stats_Access_Link"] = mydata1["Stats_Access_Link"].str.replace("<url>https://", "").str.replace("</url>", "")
+
+# then we replace the links which starts with "<url>http://"
+mydata2 = mydata1["Stats_Access_Link"] = mydata1["Stats_Access_Link"].str.replace("<url>http://", "")
+
+# mydata2 is the final dataframe.
